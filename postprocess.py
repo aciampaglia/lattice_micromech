@@ -1,17 +1,16 @@
 from visualization import *
 import numpy as np
 import os
-output_directory='cyrve_ellips_2x2_d14_ar3_mat2'
+## Set up the analysis
+output_directory = 'cyrve_ellips_2x2_d14_ar3_mat2'
 os.chdir(output_directory)
-size_values = [1.4] # mm
-filename = 'dmax_defects_2x2.txt'
-# defect_values = np.genfromtxt(filename, delimiter='\t', usecols=3, skip_header=1, names=True, dtype=None, encoding=None)
-defect_values = np.loadtxt(filename) #, skiprows=1, usecols=3)*1e-3
-defect_values = defect_values[15:]
+rve_size = [1.4] # mm
+defects_file = 'dmax_defects_2x2.txt'
+defect_values = np.loadtxt(defects_file) #, skiprows=1, usecols=3)*1e-3
 repetitions = 3
 for i, d in enumerate(defect_values):
     os.chdir('defect_{}'.format(int(d*100)))
-    for size in size_values:
+    for size in rve_size:
         for rep in range(repetitions):
             model_name='size_analysis_{}_{}_{}'.format(int(d*100), int(size*100), rep+1)
             os.chdir(model_name)
