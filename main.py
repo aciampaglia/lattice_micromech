@@ -487,17 +487,16 @@ if not os.path.isdir(output_directory):
     os.mkdir(output_directory)
 os.chdir(output_directory)
 # The RVE size convergence is repeated for the 5 largest defects with a random radial location, fixed in the mid-section
-size_values = [1.2] # mm
-filename = 'dmax_defects_2x2.txt'
-# defect_values = np.genfromtxt(filename, delimiter='\t', usecols=3, skip_header=1, names=True, dtype=None, encoding=None)
-defect_values = np.loadtxt(filename, skiprows=1, usecols=3)*1e-3
+rve_size = [1.4] # mm
+defects_file = 'dmax_defects_2x2.txt'
+defect_values = np.loadtxt(defects_file, skiprows=1, usecols=3)*1e-3
 repetitions = 1
 for i, d in enumerate(defect_values):
 	print("Generating defect with size: {}".format(d))
 	if not os.path.isdir('defect_{}'.format(int(d*100))):
 		os.mkdir('defect_{}'.format(int(d*100)))
 	os.chdir('defect_{}'.format(int(d*100)))
-	for size in size_values:
+	for size in rve_size:
 		for rep in range(repetitions):
 			model_name='size_analysis_{}_{}_{}'.format(int(d*100), int(size*100), rep+1)
 			if not os.path.isdir(model_name):
